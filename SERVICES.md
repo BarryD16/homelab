@@ -10,6 +10,8 @@
 | Uptime Kuma | https://uptime.orchestratedigital.co.uk | See Bitwarden |
 | AdGuard Home | https://adguard.orchestratedigital.co.uk | See Bitwarden |
 | Homepage | https://home.orchestratedigital.co.uk | No auth |
+| Longhorn | https://longhorn.orchestratedigital.co.uk | No auth (internal only) |
+
 
 ## Internal Services
 
