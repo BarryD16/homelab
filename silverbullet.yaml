@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: silverbullet
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: silverbullet
+  template:
+    metadata:
+      labels:
+        app: silverbullet
+    spec:
+      containers:
+        - name: silverbullet
+          image: zefhemel/silverbullet:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: silverbullet-data
+              mountPath: /space
+      volumes:
+        - name: silverbullet-data
+          persistentVolumeClaim:
+            claimName: silverbullet-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: silverbullet-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: silverbullet
+  namespace: default
+spec:
+  selector:
+    app: silverbullet
+  ports:
+    - port: 3000
+      targetPort: 3000

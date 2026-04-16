@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vikunja
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vikunja
+  template:
+    metadata:
+      labels:
+        app: vikunja
+    spec:
+      containers:
+        - name: vikunja
+          image: vikunja/vikunja:latest
+          ports:
+            - containerPort: 3456
+          env:
+            - name: VIKUNJA_SERVICE_JWTSECRET
+              value: "secret_vikunja_string"
+            - name: VIKUNJA_DATABASE_TYPE
+              value: "sqlite"
+          volumeMounts:
+            - name: vikunja-data
+              mountPath: /app/vikunja/files
+      volumes:
+        - name: vikunja-data
+          persistentVolumeClaim:
+            claimName: vikunja-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vikunja-data
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClass: longhorn
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vikunja
+  namespace: default
+spec:
+  selector:
+    app: vikunja
+  ports:
+    - port: 3456
+      targetPort: 3456

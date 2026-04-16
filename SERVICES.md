@@ -11,7 +11,8 @@
 | AdGuard Home | https://adguard.orchestratedigital.co.uk | See Bitwarden |
 | Homepage | https://home.orchestratedigital.co.uk | No auth |
 | Longhorn | https://longhorn.orchestratedigital.co.uk | No auth (internal only) |
-
+| Vikunja | https://vikunja.orchestratedigital.co.uk/ | See Bitwarden |
+| Silverbullet | https://notes.orchestratedigital.co.uk | See Bitwarden |
 
 ## Internal Services
 

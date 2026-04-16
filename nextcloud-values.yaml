@@ -1,0 +1,50 @@
+image:
+  tag: 33-apache
+
+nextcloud:
+  host: nextcloud.orchestratedigital.co.uk
+  username: admin
+  password: Lx90lx90lx90!
+  configs:
+    custom.config.php: |-
+      <?php
+      $CONFIG = array (
+        'trusted_domains' => array(
+          0 => 'localhost',
+          1 => 'nextcloud.orchestratedigital.co.uk',
+        ),
+        'overwrite.cli.url' => 'https://nextcloud.orchestratedigital.co.uk',
+        'overwriteprotocol' => 'https',
+      );
+
+ingress:
+  enabled: false
+
+service:
+  type: ClusterIP
+  port: 80
+
+persistence:
+  enabled: true
+  storageClass: longhorn
+  size: 20Gi
+
+postgresql:
+  enabled: true
+  global:
+    postgresql:
+      auth:
+        password: Lx90lx90lx90!
+        database: nextcloud
+        username: nextcloud
+  primary:
+    persistence:
+      enabled: true
+      storageClass: longhorn
+      size: 5Gi
+
+livenessProbe:
+  enabled: false
+
+readinessProbe:
+  enabled: false
