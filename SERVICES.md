@@ -13,6 +13,8 @@
 | Longhorn | https://longhorn.orchestratedigital.co.uk | No auth (internal only) |
 | Vikunja | https://vikunja.orchestratedigital.co.uk/ | See Bitwarden |
 | Silverbullet | https://notes.orchestratedigital.co.uk | See Bitwarden |
+| Open WebUI | https://ai.orchestratedigital.co.uk | See Bitwarden |
+| Big Jim (Ollama) | http://192.168.1.180:11434 | No auth (internal) |
 
 ## Internal Services
 
