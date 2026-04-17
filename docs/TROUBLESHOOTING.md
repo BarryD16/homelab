@@ -170,3 +170,34 @@ Then change it in Grafana UI: Profile → Change Password.
 - To go to end of file: press `G`
 - To open new line below: press `o` (enters insert mode)
 - **Never type `:wq` while still in insert mode** — it will be inserted into the file
+
+## CoreDNS cannot resolve external domains (SERVFAIL)
+
+**Symptom:** Pods get SERVFAIL when resolving external hostnames. ArgoCD shows `server misbehaving` errors when trying to reach GitHub.
+
+**Cause:** CoreDNS forwards to `/etc/resolv.conf` which on Ubuntu with systemd-resolved points to `127.0.0.53` — a loopback address not reachable from within pods.
+
+**Fix:** Edit the CoreDNS configmap and replace the forward directive:
+```bash
+kubectl edit configmap coredns -n kube-system
+```
+Change:
+
+eof
+
+## CoreDNS cannot resolve external domains (SERVFAIL)
+
+**Symptom:** Pods get SERVFAIL when resolving external hostnames. ArgoCD shows `server misbehaving` errors when trying to reach GitHub.
+
+**Cause:** CoreDNS forwards to `/etc/resolv.conf` which on Ubuntu with systemd-resolved points to `127.0.0.53` — a loopback address not reachable from within pods.
+
+**Fix:** Edit the CoreDNS configmap and replace the forward directive:
+```bash
+kubectl edit configmap coredns -n kube-system
+```
+Change:To:Then restart CoreDNS:
+```bash
+kubectl rollout restart deployment coredns -n kube-system
+```
+
+**Note:** This change is not persisted in Git as the coredns configmap is managed by k3s. It will need to be reapplied if the cluster is rebuilt.
