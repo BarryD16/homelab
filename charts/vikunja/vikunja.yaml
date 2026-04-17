@@ -20,7 +20,7 @@ spec:
             - containerPort: 3456
           env:
             - name: VIKUNJA_SERVICE_JWTSECRET
-              value: "secret_vikunja_string"
+              value: "CHANGEME"
             - name: VIKUNJA_DATABASE_TYPE
               value: "sqlite"
           volumeMounts:
