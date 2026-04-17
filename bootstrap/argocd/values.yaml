@@ -1,0 +1,19 @@
+global:
+  domain: argocd.local
+
+server:
+  ingress:
+    enabled: false
+
+configs:
+  params:
+    server.insecure: true
+
+redis-ha:
+  enabled: false
+
+controller:
+  replicas: 1
+
+applicationSet:
+  replicas: 1
